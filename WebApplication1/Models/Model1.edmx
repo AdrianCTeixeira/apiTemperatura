@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="temperaturaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="woeid" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Temperatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="data" Type="datetime" Nullable="false" />
+          <Property Name="temperatura" Type="int" Nullable="false" />
+          <Property Name="cidade_id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Temperatu__cidad__5441852A">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
+          <End Role="Temperatura" Type="Self.Temperatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Temperatura">
+              <PropertyRef Name="cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="temperaturaDBModelStoreContainer">
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Temperatura" EntityType="Self.Temperatura" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Temperatu__cidad__5441852A" Association="Self.FK__Temperatu__cidad__5441852A">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Temperatura" EntitySet="Temperatura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="temperaturaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Cidade">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="woeid" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Temperatura" Relationship="Self.FK__Temperatu__cidad__5441852A" FromRole="Cidade" ToRole="Temperatura" />
+        </EntityType>
+        <EntityType Name="Temperatura">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="temperatura1" Type="Int32" Nullable="false" />
+          <Property Name="cidade_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Cidade" Relationship="Self.FK__Temperatu__cidad__5441852A" FromRole="Temperatura" ToRole="Cidade" />
+        </EntityType>
+        <Association Name="FK__Temperatu__cidad__5441852A">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
+          <End Role="Temperatura" Type="Self.Temperatura" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cidade">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Temperatura">
+              <PropertyRef Name="cidade_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="temperaturaDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Cidade" EntityType="Self.Cidade" />
+          <EntitySet Name="Temperatura" EntityType="Self.Temperatura" />
+          <AssociationSet Name="FK__Temperatu__cidad__5441852A" Association="Self.FK__Temperatu__cidad__5441852A">
+            <End Role="Cidade" EntitySet="Cidade" />
+            <End Role="Temperatura" EntitySet="Temperatura" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="temperaturaDBModelStoreContainer" CdmEntityContainer="temperaturaDBEntities">
+          <EntitySetMapping Name="Cidade">
+            <EntityTypeMapping TypeName="temperaturaDBModel.Cidade">
+              <MappingFragment StoreEntitySet="Cidade">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="woeid" ColumnName="woeid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Temperatura">
+            <EntityTypeMapping TypeName="temperaturaDBModel.Temperatura">
+              <MappingFragment StoreEntitySet="Temperatura">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="data" ColumnName="data" />
+                <ScalarProperty Name="temperatura1" ColumnName="temperatura" />
+                <ScalarProperty Name="cidade_id" ColumnName="cidade_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

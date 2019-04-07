@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web.Http;
+using WebApplication1.Core;
 
 namespace WebApplication1
 {
@@ -19,6 +21,10 @@ namespace WebApplication1
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            Thread thread = new Thread(ServerSide.AtualizarDados);
+            thread.Start();
+            
         }
     }
 }
