@@ -13,11 +13,9 @@ namespace WebApplication1.Controllers
     {
         [Route("cities/{city_name}/temperatures")]
         [HttpGet]
-        public LogTemperature GetTemperatures(string city_name)
+        public LogTemperature GetCityTemperatures(string city_name)
         {
-            temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
-
-            var extemp = temperaturaDBEntities.Cidade.First(t => t.city == city_name);
+            var extemp = new temperaturaDBEntities().Cidade.First(t => t.city == city_name);
 
             var listTemperatures = new List<TemperaturaResponse>();
             foreach (Temperatura tmp in extemp.Temperatura)
@@ -53,7 +51,7 @@ namespace WebApplication1.Controllers
 
         [Route("cities/{city_name}")]
         [HttpDelete]
-        public IHttpActionResult Delete(string city_name)
+        public IHttpActionResult DeleteCity(string city_name)
         {
             if (city_name == null)
             {
@@ -63,6 +61,50 @@ namespace WebApplication1.Controllers
             temperaturaDBEntities.Cidade.Remove(temperaturaDBEntities.Cidade.First(c => c.city == city_name));
             temperaturaDBEntities.SaveChanges();
             return Ok();
+        }
+
+        [Route("cities/{city_name}/temperatures")]
+        [HttpDelete]
+        public IHttpActionResult DeleteCityTemps(string city_name)
+        {
+            if (city_name == null)
+            {
+                return BadRequest("Not valid cityName");
+            }
+            temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
+            var extemp = temperaturaDBEntities.Cidade.First(c => c.city == city_name);
+
+            temperaturaDBEntities.Temperatura.RemoveRange(extemp.Temperatura);
+            temperaturaDBEntities.SaveChanges();
+            //temperaturaDBEntities.Cidade.Remove(temperaturaDBEntities.Cidade.First(c => c.city == city_name));
+
+            return Ok();
+        }
+
+        [Route("temperatures")]
+        [HttpGet]
+        public void GetAllTemperatures()
+        {
+
+            //temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
+
+            //var extemp = temperaturaDBEntities.Cidade.ToList();
+
+            //var listTemperatures = new List<LogTemperature>();
+            //LogTemperature logTemperature = new LogTemperature();
+            //TemperaturaResponse temperaturaResponse = null;
+            //foreach (Cidade tmp in extemp)
+            //{
+                
+            //    var a = tmp.Temperatura.Last();
+            //    temperaturaResponse = new TemperaturaResponse(a.date, a.temperature);
+            //    listTemperatures.Add(logTemperature);
+            //}
+            //logTemperature.temperatures.Add(temperaturaResponse);
+
+            //logTemperature.city = tmp.city;
+            ////return new LogTemperature() { city = extemp., temperatures = listTemperatures };
+
         }
     }
 }
