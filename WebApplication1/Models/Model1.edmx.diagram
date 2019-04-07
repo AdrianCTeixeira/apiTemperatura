@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="6d6994fd7a9b4750a3490836ece4bfa9" Name="Diagram1">
+      <Diagram DiagramId="e1a2bb5100fe445f854fb38cea6bd39b" Name="Diagram1">
         <EntityTypeShape EntityType="temperaturaDBModel.Cidade" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="temperaturaDBModel.Temperatura" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
-        <AssociationConnector Association="temperaturaDBModel.FK__Temperatu__cidad__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="temperaturaDBModel.FK__Temperatu__cidad__5BE2A6F2" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

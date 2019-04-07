@@ -26,21 +26,21 @@ namespace WebApplication1.Core
             temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
             foreach (var cidade in temperaturaDBEntities.Cidade.ToList())
             {
-                var extemp = temperaturaDBEntities.Temperatura.First(t => t.cidade_id == cidade.id);
-                List<Temperatura> gettemp = extemp.Cidade.Temperatura.ToList(); ;
+                var extemp = temperaturaDBEntities.Cidade.First(t => t.id == cidade.id);
+                List<Temperatura> gettemp = extemp.Temperatura.ToList(); ;
                 for (int i = 0; cidade.Temperatura.Count >= 30; i++)
                 {
                     temperaturaDBEntities.Temperatura.Remove(gettemp[i]);
                     temperaturaDBEntities.SaveChanges();
                 }
-                Response retorno = ConsultaAPI.ConsultarApi(cidade.nome);
+                Response retorno = ConsultaAPI.ConsultarApi(cidade.city);
                 string date = DateTime.ParseExact(retorno.results.date +
                     " " + retorno.results.time + ":00", "dd/MM/yyyy HH:mm:ss",
                     CultureInfo.InvariantCulture).ToString("dd/MM/yyyy HH");
                 temperaturaDBEntities.Temperatura.Add(new Temperatura
                 {
-                    data = DateTime.Parse(date + ":00" + ":00"),
-                    temperatura1 = int.Parse(retorno.results.temp),
+                    date = DateTime.Parse(date + ":00" + ":00"),
+                    temperature = int.Parse(retorno.results.temp),
                     cidade_id = cidade.id
                 });
                 temperaturaDBEntities.SaveChanges();

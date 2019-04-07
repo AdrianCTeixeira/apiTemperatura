@@ -20,20 +20,20 @@ namespace WebApplication1.Core
             Response account = JsonConvert.DeserializeObject<Response>(response.Content.ReadAsStringAsync().Result);
             return account;
         }
-        private static void SalvarCidade()
-        {
-            string cidade = "Petrópolis";
-            Response account = ConsultarApi(cidade);
+        //private static void SalvarCidade()
+        //{
+        //    string cidade = "Petrópolis";
+        //    Response account = ConsultarApi(cidade);
 
-            temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
-            temperaturaDBEntities.Temperatura.Add(new Temperatura
-            {
-                data = DateTime.Parse(account.results.date),
-                temperatura1 = int.Parse(account.results.temp),
-                Cidade = temperaturaDBEntities.Cidade.Add(new Cidade { nome = account.results.city_name })
+        //    temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
+        //    temperaturaDBEntities.Temperatura.Add(new Temperatura
+        //    {
+        //        date = DateTime.Parse(account.results.date),
+        //        temperature = int.Parse(account.results.temp),
+        //        cidade_id = temperaturaDBEntities.Cidade.First(t => t.city == cidade)
 
-            });
-            temperaturaDBEntities.SaveChanges();
-        }
+        //    });
+        //    temperaturaDBEntities.SaveChanges();
+        //}
     }
 }

@@ -21,7 +21,7 @@ namespace WebApplication1.Models
         }
     
         public int id { get; set; }
-        public string nome { get; set; }
+        public string city { get; set; }
         public string woeid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

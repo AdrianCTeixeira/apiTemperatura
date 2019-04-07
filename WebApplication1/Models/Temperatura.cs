@@ -15,8 +15,8 @@ namespace WebApplication1.Models
     public partial class Temperatura
     {
         public int id { get; set; }
-        public System.DateTime data { get; set; }
-        public int temperatura1 { get; set; }
+        public System.DateTime date { get; set; }
+        public int temperature { get; set; }
         public int cidade_id { get; set; }
     
         public virtual Cidade Cidade { get; set; }

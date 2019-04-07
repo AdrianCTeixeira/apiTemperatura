@@ -18,12 +18,12 @@ namespace WebApplication1
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
+                routeTemplate: "",
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            Thread thread = new Thread(ServerSide.AtualizarDados);
-            thread.Start();
+            //Thread thread = new Thread(ServerSide.AtualizarDados);
+            //thread.Start();
             
         }
     }

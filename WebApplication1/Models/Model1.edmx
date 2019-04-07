@@ -10,7 +10,7 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nome" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="city" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="woeid" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Temperatura">
@@ -18,12 +18,14 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="data" Type="datetime" Nullable="false" />
-          <Property Name="temperatura" Type="int" Nullable="false" />
+          <Property Name="date" Type="datetime" Nullable="false" />
+          <Property Name="temperature" Type="int" Nullable="false" />
           <Property Name="cidade_id" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__Temperatu__cidad__5441852A">
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
+        <Association Name="FK__Temperatu__cidad__5BE2A6F2">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Temperatura" Type="Self.Temperatura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cidade">
@@ -37,7 +39,7 @@
         <EntityContainer Name="temperaturaDBModelStoreContainer">
           <EntitySet Name="Cidade" EntityType="Self.Cidade" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Temperatura" EntityType="Self.Temperatura" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__Temperatu__cidad__5441852A" Association="Self.FK__Temperatu__cidad__5441852A">
+          <AssociationSet Name="FK__Temperatu__cidad__5BE2A6F2" Association="Self.FK__Temperatu__cidad__5BE2A6F2">
             <End Role="Cidade" EntitySet="Cidade" />
             <End Role="Temperatura" EntitySet="Temperatura" />
           </AssociationSet>
@@ -52,22 +54,24 @@
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="city" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="woeid" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Temperatura" Relationship="Self.FK__Temperatu__cidad__5441852A" FromRole="Cidade" ToRole="Temperatura" />
+          <NavigationProperty Name="Temperatura" Relationship="Self.FK__Temperatu__cidad__5BE2A6F2" FromRole="Cidade" ToRole="Temperatura" />
         </EntityType>
         <EntityType Name="Temperatura">
           <Key>
             <PropertyRef Name="id" />
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="data" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="temperatura1" Type="Int32" Nullable="false" />
+          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="temperature" Type="Int32" Nullable="false" />
           <Property Name="cidade_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Cidade" Relationship="Self.FK__Temperatu__cidad__5441852A" FromRole="Temperatura" ToRole="Cidade" />
+          <NavigationProperty Name="Cidade" Relationship="Self.FK__Temperatu__cidad__5BE2A6F2" FromRole="Temperatura" ToRole="Cidade" />
         </EntityType>
-        <Association Name="FK__Temperatu__cidad__5441852A">
-          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1" />
+        <Association Name="FK__Temperatu__cidad__5BE2A6F2">
+          <End Role="Cidade" Type="Self.Cidade" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Temperatura" Type="Self.Temperatura" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Cidade">
@@ -81,7 +85,7 @@
         <EntityContainer Name="temperaturaDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Cidade" EntityType="Self.Cidade" />
           <EntitySet Name="Temperatura" EntityType="Self.Temperatura" />
-          <AssociationSet Name="FK__Temperatu__cidad__5441852A" Association="Self.FK__Temperatu__cidad__5441852A">
+          <AssociationSet Name="FK__Temperatu__cidad__5BE2A6F2" Association="Self.FK__Temperatu__cidad__5BE2A6F2">
             <End Role="Cidade" EntitySet="Cidade" />
             <End Role="Temperatura" EntitySet="Temperatura" />
           </AssociationSet>
@@ -96,7 +100,7 @@
             <EntityTypeMapping TypeName="temperaturaDBModel.Cidade">
               <MappingFragment StoreEntitySet="Cidade">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nome" ColumnName="nome" />
+                <ScalarProperty Name="city" ColumnName="city" />
                 <ScalarProperty Name="woeid" ColumnName="woeid" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -105,8 +109,8 @@
             <EntityTypeMapping TypeName="temperaturaDBModel.Temperatura">
               <MappingFragment StoreEntitySet="Temperatura">
                 <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="data" ColumnName="data" />
-                <ScalarProperty Name="temperatura1" ColumnName="temperatura" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="temperature" ColumnName="temperature" />
                 <ScalarProperty Name="cidade_id" ColumnName="cidade_id" />
               </MappingFragment>
             </EntityTypeMapping>
