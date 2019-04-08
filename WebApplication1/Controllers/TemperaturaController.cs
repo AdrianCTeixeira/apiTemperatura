@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using WebApplication1.Core;
 using WebApplication1.Models;
 
 namespace WebApplication1.Controllers
@@ -83,29 +84,46 @@ namespace WebApplication1.Controllers
 
         [Route("temperatures")]
         [HttpGet]
-        public void GetAllTemperatures()
+        public List<CityTemp> GetAllTemperatures()
         {
+            var extemp = new temperaturaDBEntities().Cidade.ToList();
 
-            //temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
+            var listTemperatures = new List<CityTemp>();
 
-            //var extemp = temperaturaDBEntities.Cidade.ToList();
+            foreach (Cidade tmp in extemp)
+            {
+                CityTemp cityTemp = new CityTemp();
+                if (tmp.Temperatura.Count > 0)
+                {
+                    cityTemp.city = tmp.city;
 
-            //var listTemperatures = new List<LogTemperature>();
-            //LogTemperature logTemperature = new LogTemperature();
-            //TemperaturaResponse temperaturaResponse = null;
-            //foreach (Cidade tmp in extemp)
-            //{
-                
-            //    var a = tmp.Temperatura.Last();
-            //    temperaturaResponse = new TemperaturaResponse(a.date, a.temperature);
-            //    listTemperatures.Add(logTemperature);
-            //}
-            //logTemperature.temperatures.Add(temperaturaResponse);
+                    var lastTemperature = tmp.Temperatura.Last();
+                    cityTemp.temperatures = new TemperaturaResponse(lastTemperature.date, lastTemperature.temperature);
+                    listTemperatures.Add(cityTemp);
+                }
+            }
 
-            //logTemperature.city = tmp.city;
-            ////return new LogTemperature() { city = extemp., temperatures = listTemperatures };
+            return listTemperatures;
 
         }
+
+        [Route("cities/by_cep/{cep}")]
+        [HttpPost]
+        public IHttpActionResult CadastrarCidadePorCEP(string cep)
+        {
+            if (cep == null)
+            {
+                return BadRequest("Not valid cep");
+            }
+
+            RegisterCity(ConsultaAPI.ConsultarApiCep(cep).Localidade);
+
+            return Ok();
+
+        }
+
     }
+
 }
+
 

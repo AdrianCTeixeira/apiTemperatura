@@ -33,7 +33,7 @@ namespace WebApplication1.Core
                     temperaturaDBEntities.Temperatura.Remove(gettemp[i]);
                     temperaturaDBEntities.SaveChanges();
                 }
-                Response retorno = ConsultaAPI.ConsultarApi(cidade.city);
+                Response retorno = ConsultaAPI.ConsultarApiTemp(cidade.city);
                 string date = DateTime.ParseExact(retorno.results.date +
                     " " + retorno.results.time + ":00", "dd/MM/yyyy HH:mm:ss",
                     CultureInfo.InvariantCulture).ToString("dd/MM/yyyy HH");

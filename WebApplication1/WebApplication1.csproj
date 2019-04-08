@@ -105,13 +105,16 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\TemperaturaController.cs" />
     <Compile Include="Core\ConsultaAPI.cs" />
+    <Compile Include="Core\HerbertLevenshteinAlgorithm.cs" />
     <Compile Include="Core\ServerSide.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CepJSON.cs" />
     <Compile Include="Models\Cidade.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CityTemp.cs" />
     <Compile Include="Models\LogTemperature.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>

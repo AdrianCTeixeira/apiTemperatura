@@ -24,7 +24,7 @@ namespace WebApplication1
 
             //Thread thread = new Thread(ServerSide.AtualizarDados);
             //thread.Start();
-            
+
         }
     }
 }
