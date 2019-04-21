@@ -11,6 +11,22 @@ namespace WebApplication1
     {
         public static void Register(HttpConfiguration config)
         {
+
+            //verificar Integridade db e apis..
+            //script de criacao de db e tabelas(usando webconfig.cnnstring)
+            //caso uma api nao esteja online(health checker), invalidar todos os metodos usados por ela
+            
+
+            //melhorar atualizacao de temperatura(substituir threads)
+            //descartar usos de entity framework(usar dapper)
+            //*documentar api
+
+            //remover o maximo de classes de modelo
+            //*usar o maximo de async/await
+            //*separar responsabilidades
+            
+            //*recriar plano de testes(apenas de integracao)            
+
             // Serviços e configuração da API da Web
 
             // Rotas da API da Web
@@ -22,7 +38,7 @@ namespace WebApplication1
                 defaults: new { id = RouteParameter.Optional }
             );
 
-            //Thread thread = new Thread(ServerSide.AtualizarDados);
+            //Thread thread = new Thread(() => ServerSide.AtualizarDados(30)); //3600(1 hora)
             //thread.Start();
 
         }

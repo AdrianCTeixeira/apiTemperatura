@@ -11,19 +11,23 @@ namespace WebApplication1.Core
 {
     public class ServerSide
     {
-        public static void AtualizarDados()
+        static readonly temperaturaDBEntities temperaturaDBEntities = temperaturaDBEntities.GetInstance();
+
+        /// <summary>
+        /// Lopping que irá rodar automaticamente acessando a cada hora a API de dados de temperatura.
+        /// </summary>
+        /// <param name="segundos"></param>
+        public static void AtualizarDados(int segundos)
         {
-            for (; ; )
+            for ( ; ; )
             {
                 CarregarInformacoes();
-                Thread.Sleep(10000);
+                Thread.Sleep(segundos*1000);
                 Debug.WriteLine("Send to debug output.");
             }
         }
-        public static void CarregarInformacoes()
+        protected static void CarregarInformacoes()
         {
-
-            temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
             foreach (var cidade in temperaturaDBEntities.Cidade.ToList())
             {
                 var extemp = temperaturaDBEntities.Cidade.First(t => t.id == cidade.id);
@@ -33,19 +37,18 @@ namespace WebApplication1.Core
                     temperaturaDBEntities.Temperatura.Remove(gettemp[i]);
                     temperaturaDBEntities.SaveChanges();
                 }
-                Response retorno = ConsultaAPI.ConsultarApiTemp(cidade.city);
-                string date = DateTime.ParseExact(retorno.results.date +
-                    " " + retorno.results.time + ":00", "dd/MM/yyyy HH:mm:ss",
+                Response retorno = ConsultaAPI.ConsultarApiTempAsync(cidade.city).Result;
+                string date = DateTime.ParseExact(retorno.Results.Date +
+                    " " + retorno.Results.Time + ":00", "dd/MM/yyyy HH:mm:ss",
                     CultureInfo.InvariantCulture).ToString("dd/MM/yyyy HH");
                 temperaturaDBEntities.Temperatura.Add(new Temperatura
                 {
                     date = DateTime.Parse(date + ":00" + ":00"),
-                    temperature = int.Parse(retorno.results.temp),
+                    temperature = int.Parse(retorno.Results.Temp),
                     cidade_id = cidade.id
                 });
                 temperaturaDBEntities.SaveChanges();
             }
         }
-
     }
 }

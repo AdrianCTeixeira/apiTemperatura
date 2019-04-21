@@ -2,49 +2,40 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using WebApplication1.Models;
+using static System.Net.WebRequestMethods;
 
 namespace WebApplication1.Core
 {
     public class ConsultaAPI
     {
-        
-        public static Response ConsultarApiTemp(string cityName)
+
+        public static async Task<Response> ConsultarApiTempAsync(string cityName)
         {
-            HttpResponseMessage response = new HttpClient()
-                .GetAsync("https://api.hgbrasil.com/weather/?format=json&city_name=" + cityName + "&key=bf8b76a2").Result;
+            HttpResponseMessage response = await new HttpClient()
+                .GetAsync("https://api.hgbrasil.com/weather/?format=json&city_name=" + cityName + "&key=bf8b76a2");
 
             Response account = JsonConvert.DeserializeObject<Response>(response.Content.ReadAsStringAsync().Result);
             return account;
         }
-        public static CepJSON ConsultarApiCep(string cep)
+        public static string ConsultarApiCep(string cep)
         {
+            
+            string url = "https://viacep.com.br/ws/" + cep + "/json/";
             HttpResponseMessage response = new HttpClient()
-                .GetAsync("https://viacep.com.br/ws/" + cep + "/json/").Result;
+                .GetAsync(url).Result;
+            if(response.StatusCode == HttpStatusCode.BadRequest){ return null;}
 
-            CepJSON account = JsonConvert.DeserializeObject<CepJSON>(response.Content.ReadAsStringAsync().Result);
-            return account;
+            return ((dynamic)JsonConvert.DeserializeObject(response.Content.ReadAsStringAsync().Result))["localidade"];
         }
+
         
 
-
-        //private static void SalvarCidade()
-        //{
-        //    string cidade = "Petrópolis";
-        //    Response account = ConsultarApi(cidade);
-
-        //    temperaturaDBEntities temperaturaDBEntities = new temperaturaDBEntities();
-        //    temperaturaDBEntities.Temperatura.Add(new Temperatura
-        //    {
-        //        date = DateTime.Parse(account.results.date),
-        //        temperature = int.Parse(account.results.temp),
-        //        cidade_id = temperaturaDBEntities.Cidade.First(t => t.city == cidade)
-
-        //    });
-        //    temperaturaDBEntities.SaveChanges();
-        //}
     }
 }

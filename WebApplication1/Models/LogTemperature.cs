@@ -7,8 +7,8 @@ namespace WebApplication1.Models
 {
     public class LogTemperature
     {
-        public string city { get; set; }
-        public List<TemperaturaResponse> temperatures { get; set; }
+        public string City { get; set; }
+        public List<TemperaturaResponse> Temperatures { get; set; }
     }
-    
+
 }

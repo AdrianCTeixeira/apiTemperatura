@@ -7,7 +7,7 @@ namespace WebApplication1.Models
 {
     public class CityTemp
     {
-        public string city { get; set; }
-        public TemperaturaResponse temperatures { get; set; }
+        public string City { get; set; }
+        public TemperaturaResponse Temperatures { get; set; }
     }
 }

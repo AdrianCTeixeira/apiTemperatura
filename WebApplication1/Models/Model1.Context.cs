@@ -15,9 +15,15 @@ namespace WebApplication1.Models
     
     public partial class temperaturaDBEntities : DbContext
     {
-        public temperaturaDBEntities()
+        protected temperaturaDBEntities()
             : base("name=temperaturaDBEntities")
         {
+        }
+        
+
+        public static temperaturaDBEntities GetInstance()
+        {
+            return new temperaturaDBEntities();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -9,10 +9,10 @@ namespace WebApplication1.Models
     {
         public TemperaturaResponse(DateTime Date, int Temperature)
         {
-            date = Date;
-            temperature = Temperature;
+            this.Date = Date;
+            this.Temperature = Temperature;
         }
-        public DateTime date { get; set; }
-        public int temperature { get; set; }
+        public DateTime Date { get; set; }
+        public int Temperature { get; set; }
     }
 }
